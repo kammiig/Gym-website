@@ -68,14 +68,20 @@ a {
   gap: 10px;
 }
 
-.site-nav a {
+.site-nav a,
+.site-nav button {
   padding: 9px 12px;
   color: #343431;
   font-size: 0.95rem;
   font-weight: 700;
+  font-family: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
 }
 
-.site-nav a:hover {
+.site-nav a:hover,
+.site-nav button:hover {
   color: var(--accent-dark);
 }
 
@@ -394,6 +400,103 @@ textarea {
   font-weight: 800;
 }
 
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
+
+.modal.is-open {
+  display: flex;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(8px);
+}
+
+.modal-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(560px, 100%);
+  max-height: calc(100vh - 44px);
+  overflow: auto;
+  padding: clamp(24px, 4vw, 36px);
+  background: var(--panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.modal-dialog .eyebrow {
+  color: var(--accent-dark);
+}
+
+.modal-dialog h2 {
+  margin-right: 40px;
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.modal-copy {
+  color: var(--muted);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--ink);
+  font-size: 1.8rem;
+  line-height: 1;
+  background: #f1f1eb;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.appointment-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.appointment-form label {
+  display: grid;
+  gap: 7px;
+  color: #373733;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.appointment-form label:first-child,
+.appointment-form label:nth-child(2),
+.appointment-form label:nth-child(5),
+.appointment-form .button,
+.appointment-status {
+  grid-column: 1 / -1;
+}
+
+.appointment-status {
+  min-height: 24px;
+  margin: 0;
+  color: var(--accent-dark);
+  font-weight: 800;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
 .site-footer {
   display: flex;
   align-items: center;
@@ -441,7 +544,8 @@ textarea {
     display: flex;
   }
 
-  .site-nav a {
+  .site-nav a,
+  .site-nav button {
     padding: 12px;
   }
 
@@ -505,6 +609,10 @@ textarea {
   .gallery-grid {
     grid-template-columns: 1fr;
     grid-auto-rows: 240px;
+  }
+
+  .appointment-form {
+    grid-template-columns: 1fr;
   }
 
   .site-footer {
