@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseFit Gym</title>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="#home" aria-label="PulseFit home">
+      <span>Pulse</span>Fit
+    </a>
+
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="#classes">Classes</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+      <a class="nav-cta" href="#contact">Join Now</a>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero" aria-label="PulseFit Gym introduction">
+      <div class="hero-content">
+        <p class="eyebrow">Train stronger. Move better.</p>
+        <h1>Fitness that fits your life.</h1>
+        <p class="hero-copy">
+          Expert coaching, energizing classes, and a welcoming space built for every level.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#contact">Start Today</a>
+          <a class="button secondary" href="#classes">View Classes</a>
+        </div>
+      </div>
+
+      <div class="hero-stats" aria-label="Gym highlights">
+        <article>
+          <strong>45+</strong>
+          <span>Weekly classes</span>
+        </article>
+        <article>
+          <strong>12</strong>
+          <span>Certified coaches</span>
+        </article>
+        <article>
+          <strong>24/7</strong>
+          <span>Member access</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="classes section" id="classes">
+      <div class="section-heading">
+        <p class="eyebrow">Classes</p>
+        <h2>Find your rhythm</h2>
+        <p>Choose from focused strength work, high-energy conditioning, and recovery sessions.</p>
+      </div>
+
+      <div class="class-grid">
+        <article class="class-card">
+          <div class="class-icon">01</div>
+          <h3>Strength Lab</h3>
+          <p>Progressive lifting sessions with form coaching, smart programming, and measured wins.</p>
+          <span>Mon, Wed, Fri</span>
+        </article>
+        <article class="class-card">
+          <div class="class-icon">02</div>
+          <h3>HIIT Circuit</h3>
+          <p>Fast-paced intervals designed to build stamina, power, and confidence in 45 minutes.</p>
+          <span>Daily</span>
+        </article>
+        <article class="class-card">
+          <div class="class-icon">03</div>
+          <h3>Mobility Flow</h3>
+          <p>Guided movement and recovery work to unlock range, reduce tension, and reset your body.</p>
+          <span>Tue, Thu, Sat</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="gallery section" id="gallery">
+      <div class="section-heading">
+        <p class="eyebrow">Gallery</p>
+        <h2>Inside the club</h2>
+        <p>Clean equipment, bright training spaces, and a community that keeps showing up.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80" alt="Gym floor with cardio and strength equipment">
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80" alt="Athlete lifting a barbell in a gym">
+        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=80" alt="Group fitness class training together">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=80" alt="Personal trainer coaching a gym member">
+      </div>
+    </section>
+
+    <section class="contact section" id="contact">
+      <div class="contact-panel">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2>Ready for your first session?</h2>
+          <p>
+            Tell us what you are working toward. We will help you pick the right plan and class.
+          </p>
+          <ul class="contact-list">
+            <li>Open daily from 5:00 AM to 11:00 PM</li>
+            <li>Downtown Fitness District</li>
+            <li>hello@pulsefit.example</li>
+          </ul>
+        </div>
+
+        <form class="contact-form">
+          <label>
+            Name
+            <input type="text" name="name" placeholder="Your name" required>
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="you@example.com" required>
+          </label>
+          <label>
+            Fitness goal
+            <select name="goal" required>
+              <option value="">Choose one</option>
+              <option>Build strength</option>
+              <option>Improve conditioning</option>
+              <option>Lose weight</option>
+              <option>Move better</option>
+            </select>
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="4" placeholder="Tell us a little about your goals"></textarea>
+          </label>
+          <button class="button primary" type="submit">Send Message</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 PulseFit Gym. All rights reserved.</p>
+    <div>
+      <a href="#classes">Classes</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
