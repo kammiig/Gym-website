@@ -12,6 +12,7 @@ const modalCloseControls = document.querySelectorAll("[data-close-modal]");
 const closeAppointmentModal = () => {
   appointmentModal.classList.remove("is-open");
   appointmentModal.setAttribute("aria-hidden", "true");
+  appointmentModal.hidden = true;
   document.body.classList.remove("modal-open");
   appointmentTrigger.focus();
 };
@@ -20,6 +21,7 @@ const openAppointmentModal = () => {
   siteNav.classList.remove("is-open");
   navToggle.setAttribute("aria-expanded", "false");
   navToggle.setAttribute("aria-label", "Open menu");
+  appointmentModal.hidden = false;
   appointmentModal.classList.add("is-open");
   appointmentModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
