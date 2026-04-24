@@ -10,9 +10,9 @@ const appointmentStatus = document.querySelector(".appointment-status");
 const modalCloseControls = document.querySelectorAll("[data-close-modal]");
 
 const closeAppointmentModal = () => {
-  appointmentModal.classList.remove("is-open");
-  appointmentModal.setAttribute("aria-hidden", "true");
-  appointmentModal.hidden = true;
+  if (appointmentModal.open) {
+    appointmentModal.close();
+  }
   document.body.classList.remove("modal-open");
   appointmentTrigger.focus();
 };
@@ -21,9 +21,8 @@ const openAppointmentModal = () => {
   siteNav.classList.remove("is-open");
   navToggle.setAttribute("aria-expanded", "false");
   navToggle.setAttribute("aria-label", "Open menu");
-  appointmentModal.hidden = false;
-  appointmentModal.classList.add("is-open");
-  appointmentModal.setAttribute("aria-hidden", "false");
+  appointmentStatus.textContent = "";
+  appointmentModal.showModal();
   document.body.classList.add("modal-open");
   appointmentForm.querySelector("input").focus();
 };
@@ -48,10 +47,14 @@ modalCloseControls.forEach((control) => {
   control.addEventListener("click", closeAppointmentModal);
 });
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && appointmentModal.classList.contains("is-open")) {
+appointmentModal.addEventListener("click", (event) => {
+  if (event.target === appointmentModal) {
     closeAppointmentModal();
   }
+});
+
+appointmentModal.addEventListener("close", () => {
+  document.body.classList.remove("modal-open");
 });
 
 contactForm.addEventListener("submit", (event) => {
