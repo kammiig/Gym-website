@@ -404,16 +404,17 @@ textarea {
   position: fixed;
   top: 50%;
   left: 50%;
-  width: min(560px, calc(100% - 36px));
-  max-height: calc(100dvh - 36px);
-  overflow: auto;
+  width: 520px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow: hidden;
   margin: auto;
-  padding: clamp(24px, 4vw, 36px);
+  padding: 0;
   color: var(--ink);
   background: var(--panel);
   border: 0;
   border-radius: var(--radius);
-  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
   transform: translate(-50%, -50%);
 }
 
@@ -422,53 +423,101 @@ textarea {
 }
 
 .appointment-modal::backdrop {
-  background: rgba(0, 0, 0, 0.72);
+  background: rgba(0, 0, 0, 0.76);
   backdrop-filter: blur(8px);
 }
 
+.modal-header {
+  position: relative;
+  padding: 28px 32px 24px;
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(32, 36, 33, 0.98), rgba(16, 18, 16, 0.96)),
+    url("https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=900&q=70") center/cover;
+  border-bottom: 4px solid var(--accent);
+}
+
+.modal-header::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.06));
+  pointer-events: none;
+}
+
+.modal-header > * {
+  position: relative;
+  z-index: 1;
+}
+
 .appointment-modal .eyebrow {
-  color: var(--accent-dark);
+  margin-bottom: 8px;
+  color: var(--accent);
+  font-size: 0.72rem;
 }
 
 .appointment-modal h2 {
-  margin-right: 40px;
-  font-size: clamp(2rem, 5vw, 3rem);
+  max-width: 360px;
+  margin: 0 44px 10px 0;
+  color: #fff;
+  font-size: clamp(1.7rem, 4vw, 2.25rem);
+  line-height: 1.05;
 }
 
 .modal-copy {
-  color: var(--muted);
+  max-width: 350px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.98rem;
+  line-height: 1.5;
 }
 
 .modal-close {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
-  color: var(--ink);
-  font-size: 1.8rem;
+  width: 36px;
+  height: 36px;
+  color: #fff;
+  font-size: 1.55rem;
   line-height: 1;
-  background: #f1f1eb;
-  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 50%;
   cursor: pointer;
+}
+
+.modal-close:hover {
+  color: var(--ink);
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 .appointment-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 24px;
+  gap: 14px;
+  max-height: calc(100dvh - 230px);
+  overflow: auto;
+  padding: 24px 32px 30px;
 }
 
 .appointment-form label {
   display: grid;
-  gap: 7px;
+  gap: 8px;
   color: #373733;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 800;
+}
+
+.appointment-form input,
+.appointment-form select {
+  min-height: 50px;
+  padding: 11px 14px;
+  background: #fbfbf8;
 }
 
 .appointment-form label:first-child,
@@ -483,6 +532,7 @@ textarea {
   min-height: 24px;
   margin: 0;
   color: var(--accent-dark);
+  font-size: 0.9rem;
   font-weight: 800;
 }
 
@@ -606,6 +656,17 @@ body.modal-open {
 
   .appointment-form {
     grid-template-columns: 1fr;
+    max-height: calc(100dvh - 200px);
+    padding: 20px;
+  }
+
+  .modal-header {
+    padding: 24px 20px 20px;
+  }
+
+  .appointment-modal h2 {
+    margin-right: 36px;
+    font-size: 1.65rem;
   }
 
   .site-footer {

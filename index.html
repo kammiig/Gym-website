@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PulseFit Gym</title>
   <link rel="preconnect" href="https://images.unsplash.com">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
   <header class="site-header">
@@ -148,9 +148,11 @@
 
   <dialog class="appointment-modal" id="appointment-modal" aria-labelledby="appointment-title">
     <button class="modal-close" type="button" aria-label="Close appointment form" data-close-modal>&times;</button>
-    <p class="eyebrow">Appointment</p>
-    <h2 id="appointment-title">Book your first visit</h2>
-    <p class="modal-copy">Pick a preferred time and we will confirm your gym tour or trial class.</p>
+    <div class="modal-header">
+      <p class="eyebrow">Appointment</p>
+      <h2 id="appointment-title">Book your first visit</h2>
+      <p class="modal-copy">Choose a time for your gym tour or trial class.</p>
+    </div>
 
     <form class="appointment-form">
       <label>
@@ -192,6 +194,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>
