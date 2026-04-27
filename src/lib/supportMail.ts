@@ -50,3 +50,33 @@ export function createSupportTransporter() {
     })
   };
 }
+
+type MailError = {
+  code?: string;
+  command?: string;
+  response?: string;
+  responseCode?: number;
+  message?: string;
+};
+
+export function getSupportMailErrorMessage(error: unknown) {
+  const mailError = error as MailError;
+
+  if (mailError.code === "EAUTH" || mailError.responseCode === 535) {
+    return "Gmail rejected the SMTP login. Use a Google App Password for SMTP_PASS and make sure SMTP_USER is the same Gmail account.";
+  }
+
+  if (mailError.code === "ECONNECTION" || mailError.code === "ETIMEDOUT") {
+    return "The server could not connect to Gmail SMTP. Check SMTP_HOST, SMTP_PORT, SMTP_SECURE, and hosting firewall settings.";
+  }
+
+  if (mailError.code === "ENOTFOUND") {
+    return "The server could not find the SMTP host. Check SMTP_HOST is set to smtp.gmail.com.";
+  }
+
+  if (mailError.command === "CONN") {
+    return "The SMTP connection failed. For Gmail use SMTP_HOST=smtp.gmail.com, SMTP_PORT=465, and SMTP_SECURE=true.";
+  }
+
+  return "Unable to send login code. Check SMTP environment variables and Gmail App Password settings.";
+}

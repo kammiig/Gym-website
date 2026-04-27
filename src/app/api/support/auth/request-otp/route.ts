@@ -8,7 +8,7 @@ import {
   hashLoginCode,
   isProduction
 } from "@/lib/supportAuth";
-import { createSupportTransporter } from "@/lib/supportMail";
+import { createSupportTransporter, getSupportMailErrorMessage } from "@/lib/supportMail";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -113,9 +113,11 @@ export async function POST(request: Request) {
       ok: true,
       message: "Login code sent"
     });
-  } catch {
+  } catch (error) {
+    console.error("Support login code email failed", error);
+
     return NextResponse.json(
-      { ok: false, message: "Unable to send login code." },
+      { ok: false, message: getSupportMailErrorMessage(error) },
       { status: 400 }
     );
   }

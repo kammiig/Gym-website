@@ -1,7 +1,11 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { SUPPORT_SESSION_COOKIE, SupportSession, decodeToken } from "@/lib/supportAuth";
-import { SupportMailAttachment, createSupportTransporter } from "@/lib/supportMail";
+import {
+  SupportMailAttachment,
+  createSupportTransporter,
+  getSupportMailErrorMessage
+} from "@/lib/supportMail";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -270,11 +274,17 @@ export async function POST(request: Request) {
       message: "Support ticket created"
     });
   } catch (error) {
+    console.error("Support ticket email failed", error);
+
     return NextResponse.json(
       {
         ok: false,
         message:
-          error instanceof Error ? error.message : "Unable to create support ticket."
+          error instanceof Error && !["EAUTH", "ECONNECTION", "ETIMEDOUT", "ENOTFOUND"].includes(
+            (error as { code?: string }).code || ""
+          )
+            ? error.message
+            : getSupportMailErrorMessage(error)
       },
       { status: 400 }
     );
