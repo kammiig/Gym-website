@@ -4,6 +4,26 @@ import { Icon } from "./Icon";
 
 export function Hero() {
   const hero = pages.home.hero;
+  const dashboardItems = [
+    {
+      title: "SSD Hosting",
+      description: "Fast storage, cPanel tools, and free SSL for business websites.",
+      icon: "Zap",
+      badge: "Performance"
+    },
+    {
+      title: "Secure Domains",
+      description: "Register, renew, and manage domains from the WHMCS client area.",
+      icon: "Globe2",
+      badge: "Management"
+    },
+    {
+      title: "WHMCS Billing",
+      description: "Invoices, orders, support tickets, and services in one portal.",
+      icon: "CreditCard",
+      badge: "Client area"
+    }
+  ];
 
   return (
     <section className="hero-section">
@@ -38,13 +58,17 @@ export function Hero() {
             <span>Server status: operational</span>
           </div>
           <div className="server-stack">
-            {["SSD Hosting", "Secure Domains", "WHMCS Billing"].map((label, index) => (
-              <div className="server-row" key={label}>
-                <span>{label}</span>
-                <div className="server-bars" aria-hidden="true">
-                  <i style={{ width: `${72 + index * 8}%` }} />
-                  <i style={{ width: `${52 + index * 12}%` }} />
-                  <i style={{ width: `${36 + index * 15}%` }} />
+            {dashboardItems.map((item) => (
+              <div className="server-row" key={item.title}>
+                <div className="server-row-icon">
+                  <Icon name={item.icon} size={22} />
+                </div>
+                <div>
+                  <div className="server-row-heading">
+                    <strong>{item.title}</strong>
+                    <span>{item.badge}</span>
+                  </div>
+                  <p>{item.description}</p>
                 </div>
               </div>
             ))}
