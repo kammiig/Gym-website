@@ -31,6 +31,10 @@ body {
   background: #ffffff;
 }
 
+:target {
+  scroll-margin-top: 94px;
+}
+
 body.nav-open {
   overflow: hidden;
 }
@@ -178,6 +182,11 @@ ul {
   background: var(--blue-dark);
 }
 
+.site-nav a[aria-current="page"] {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+}
+
 .nav-toggle {
   display: none;
   width: 44px;
@@ -283,6 +292,15 @@ ul {
 .button:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 30px rgba(15, 27, 53, 0.18);
+}
+
+.button:focus-visible,
+.site-nav a:focus-visible,
+.client-actions a:focus-visible,
+.footer-column a:focus-visible,
+.nav-toggle:focus-visible {
+  outline: 3px solid rgba(56, 189, 248, 0.72);
+  outline-offset: 3px;
 }
 
 .button.primary {
@@ -794,6 +812,25 @@ textarea:focus {
   font-weight: 900;
 }
 
+.contact-list a {
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: underline;
+  text-decoration-color: rgba(191, 219, 254, 0.55);
+  text-underline-offset: 4px;
+}
+
+.contact-list a:hover,
+.contact-list a:focus-visible {
+  color: #ffffff;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
 .contact-form,
 .mini-contact {
   display: grid;
@@ -1036,7 +1073,7 @@ textarea:focus {
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1180px) {
   .nav-toggle {
     display: block;
   }
