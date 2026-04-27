@@ -31,6 +31,7 @@ SMTP_USER=kammiig@gmail.com
 SMTP_PASS=your_gmail_app_password
 SMTP_FROM="Planetic Solutions Support <kammiig@gmail.com>"
 SUPPORT_EMAIL=kammiig@gmail.com
+SUPPORT_AUTH_SECRET=replace-with-a-long-random-secret
 ```
 
 7. Deploy.

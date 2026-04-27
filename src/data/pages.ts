@@ -93,15 +93,15 @@ export const pages = {
     }
   },
   support: {
-    seoTitle: "Support Tickets",
+    seoTitle: "Support Portal",
     metaDescription:
-      "Create a Planetic Solutions support ticket for hosting, domains, billing, website development, and client area help.",
+      "Login to the Planetic Solutions support portal to create tickets with screenshots and attachments for hosting, domains, billing, website development, and client area help.",
     hero: {
-      eyebrow: "Support tickets",
-      title: "Create a Support Ticket",
+      eyebrow: "Secure support portal",
+      title: "Login and Create Support Tickets",
       description:
-        "Send a support request with your service details. Your ticket will go to Planetic Solutions by email and you can receive replies directly in your inbox.",
-      primaryCta: { label: "Create Ticket", href: "#support-ticket-form" },
+        "Use email-code login to access the ticket desk, submit service details, upload screenshots or files, and receive replies directly in your inbox.",
+      primaryCta: { label: "Open Support Portal", href: "#support-ticket-form" },
       secondaryCta: { label: "Client Area", href: CLIENT_AREA_URL }
     }
   },

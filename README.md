@@ -66,9 +66,9 @@ CONTACT_WEBHOOK_URL=https://your-secure-webhook.example/contact
 
 Do not commit `.env.local` or real API keys to GitHub.
 
-## Support Tickets by Email
+## Support Portal
 
-The `/support` page lets customers create support tickets. Tickets are sent to `kammiig@gmail.com`, and the admin ticket email uses the customer's email as `Reply-To`, so you can reply from Gmail directly.
+The `/support` page includes a login-first support portal. Customers receive a one-time login code by email, then create tickets with screenshots or attachments. Tickets are sent to `kammiig@gmail.com`, and the admin ticket email uses the customer's email as `Reply-To`, so you can reply from Gmail directly.
 
 This uses SMTP through environment variables:
 
@@ -80,6 +80,7 @@ SMTP_USER=kammiig@gmail.com
 SMTP_PASS=your_gmail_app_password
 SMTP_FROM="Planetic Solutions Support <kammiig@gmail.com>"
 SUPPORT_EMAIL=kammiig@gmail.com
+SUPPORT_AUTH_SECRET=replace-with-a-long-random-secret
 ```
 
 For Gmail, create a Google App Password and use it as `SMTP_PASS`. Do not use your normal Gmail password.
@@ -91,6 +92,9 @@ For Gmail, create a Google App Password and use it as `SMTP_PASS`. Do not use yo
 +-- src
 |   +-- app
 |   |   +-- api/contact/route.ts
+|   |   +-- api/support/auth/request-otp/route.ts
+|   |   +-- api/support/auth/session/route.ts
+|   |   +-- api/support/auth/verify-otp/route.ts
 |   |   +-- api/tickets/route.ts
 |   |   +-- about/page.tsx
 |   |   +-- contact/page.tsx

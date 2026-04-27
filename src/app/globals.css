@@ -1055,6 +1055,326 @@ svg {
   margin-top: 6px;
 }
 
+.support-portal-section {
+  background: var(--soft);
+}
+
+.support-auth-grid,
+.support-portal,
+.support-portal-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.support-auth-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  gap: 34px;
+  align-items: start;
+  padding: 34px;
+}
+
+.support-auth-copy h2,
+.ticket-workspace-header h2 {
+  margin: 12px 0 14px;
+  color: var(--navy);
+  font-size: 2rem;
+  line-height: 1.14;
+}
+
+.support-auth-copy p,
+.auth-note {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.portal-benefits {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.portal-benefits div {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--soft);
+}
+
+.portal-benefits strong,
+.portal-benefits span {
+  display: block;
+}
+
+.portal-benefits strong {
+  color: var(--navy);
+  font-size: 1rem;
+}
+
+.portal-benefits span {
+  margin-top: 5px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.support-auth-form,
+.ticket-form {
+  display: grid;
+  gap: 18px;
+}
+
+.support-auth-form {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+  background: #fbfdff;
+}
+
+.support-auth-form h3,
+.recent-ticket-list h3 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.25rem;
+}
+
+.support-auth-form label,
+.ticket-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--navy);
+  font-size: 0.92rem;
+  font-weight: 850;
+}
+
+.support-auth-form input,
+.ticket-form input,
+.ticket-form select,
+.ticket-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--ink);
+  outline: none;
+  padding: 13px 14px;
+}
+
+.support-auth-form input:focus,
+.ticket-form input:focus,
+.ticket-form select:focus,
+.ticket-form textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.portal-text-button {
+  width: fit-content;
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  font-weight: 900;
+  padding: 0;
+}
+
+.support-portal-card {
+  padding: 28px;
+}
+
+.support-loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--navy);
+}
+
+.support-loading span {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--green);
+}
+
+.support-portal {
+  display: grid;
+  grid-template-columns: 292px 1fr;
+  overflow: hidden;
+}
+
+.support-sidebar {
+  display: grid;
+  align-content: start;
+  gap: 22px;
+  background: var(--navy);
+  color: var(--white);
+  padding: 28px;
+}
+
+.support-account {
+  display: grid;
+  gap: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 20px;
+}
+
+.support-account span,
+.support-response-box span {
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.support-account strong {
+  font-size: 1.2rem;
+  line-height: 1.25;
+}
+
+.support-account a {
+  color: #8fd5ff;
+  font-size: 0.92rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.support-nav-list {
+  display: grid;
+  gap: 8px;
+}
+
+.support-nav-list span {
+  border-radius: 8px;
+  padding: 11px 12px;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.74);
+  font-weight: 850;
+}
+
+.support-nav-list span.active {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.support-response-box {
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.support-sidebar .portal-text-button {
+  color: #8fd5ff;
+}
+
+.ticket-workspace {
+  display: grid;
+  gap: 26px;
+  padding: 32px;
+}
+
+.ticket-workspace-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 22px;
+}
+
+.ticket-secure-pill {
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 0.82rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.ticket-form button {
+  width: fit-content;
+}
+
+.attachment-drop {
+  border: 1px dashed rgba(37, 99, 235, 0.42);
+  border-radius: 8px;
+  padding: 18px;
+  background: #f8fbff;
+}
+
+.attachment-drop span {
+  color: var(--navy);
+}
+
+.attachment-drop input {
+  border: 0;
+  padding: 10px 0 0;
+  background: transparent;
+}
+
+.attachment-drop small {
+  color: var(--muted);
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+.attachment-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.attachment-list span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 10px;
+  background: var(--soft);
+  color: var(--navy);
+  font-weight: 850;
+}
+
+.attachment-list small {
+  color: var(--muted);
+}
+
+.recent-ticket-list {
+  display: grid;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+
+.recent-ticket {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: var(--soft);
+}
+
+.recent-ticket strong {
+  color: var(--blue);
+}
+
+.recent-ticket span {
+  color: var(--navy);
+  font-weight: 850;
+}
+
+.recent-ticket small {
+  color: var(--muted);
+  font-weight: 800;
+}
+
 .contact-details {
   display: grid;
   gap: 10px;
@@ -1214,6 +1534,11 @@ svg {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .support-auth-grid,
+  .support-portal {
+    grid-template-columns: 1fr;
+  }
+
   .cta-actions {
     margin-top: 0;
   }
@@ -1279,6 +1604,27 @@ svg {
     grid-template-columns: 1fr;
   }
 
+  .support-auth-grid,
+  .ticket-workspace,
+  .support-sidebar {
+    padding: 22px;
+  }
+
+  .ticket-workspace-header,
+  .recent-ticket {
+    align-items: stretch;
+    grid-template-columns: 1fr;
+  }
+
+  .ticket-workspace-header {
+    flex-direction: column;
+  }
+
+  .ticket-secure-pill,
+  .ticket-form button {
+    width: fit-content;
+  }
+
   .domain-search-form > div {
     grid-template-columns: 1fr;
   }
@@ -1308,7 +1654,8 @@ svg {
   }
 
   .btn,
-  .contact-form button {
+  .contact-form button,
+  .ticket-form button {
     width: 100%;
   }
 
@@ -1317,6 +1664,7 @@ svg {
   .domain-search-panel,
   .contact-panel,
   .support-panel,
+  .support-auth-form,
   .contact-form,
   .pricing-card {
     padding: 22px;

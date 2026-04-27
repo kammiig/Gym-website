@@ -1,11 +1,26 @@
-import nodemailer from "nodemailer";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { siteConfig } from "@/data/site";
+import { SUPPORT_SESSION_COOKIE, SupportSession, decodeToken } from "@/lib/supportAuth";
+import { SupportMailAttachment, createSupportTransporter } from "@/lib/supportMail";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const requiredFields = ["fullName", "email", "department", "priority", "subject", "message"];
+const requiredFields = ["department", "priority", "subject", "message"];
+const allowedAttachmentTypes = new Set([
+  "image/png",
+  "image/jpeg",
+  "image/webp",
+  "image/gif",
+  "application/pdf",
+  "text/plain",
+  "application/zip",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "application/msword"
+]);
+const maxFiles = 5;
+const maxFileSize = 5 * 1024 * 1024;
+const maxTotalSize = 15 * 1024 * 1024;
 
 type TicketPayload = {
   fullName: string;
@@ -13,8 +28,10 @@ type TicketPayload = {
   phone: string;
   department: string;
   priority: string;
+  serviceReference: string;
   subject: string;
   message: string;
+  attachmentNames: string[];
 };
 
 function clean(value: unknown) {
@@ -41,32 +58,6 @@ function generateTicketId() {
   return `PS-${date}-${random}`;
 }
 
-function getMailConfig() {
-  const host = process.env.SMTP_HOST;
-  const port = Number(process.env.SMTP_PORT || 465);
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
-  const secure = process.env.SMTP_SECURE !== "false";
-  const supportEmail = process.env.SUPPORT_EMAIL || siteConfig.supportEmail;
-  const from = process.env.SMTP_FROM || `"${siteConfig.name} Support" <${user}>`;
-
-  if (!host || !user || !pass || !supportEmail) {
-    return null;
-  }
-
-  return {
-    host,
-    port,
-    secure,
-    auth: {
-      user,
-      pass
-    },
-    supportEmail,
-    from
-  };
-}
-
 function buildAdminEmail(ticketId: string, payload: TicketPayload) {
   const fields = [
     ["Ticket ID", ticketId],
@@ -75,6 +66,8 @@ function buildAdminEmail(ticketId: string, payload: TicketPayload) {
     ["Phone", payload.phone || "Not provided"],
     ["Department", payload.department],
     ["Priority", payload.priority],
+    ["Service reference", payload.serviceReference || "Not provided"],
+    ["Attachments", payload.attachmentNames.length ? payload.attachmentNames.join(", ") : "None"],
     ["Subject", payload.subject]
   ];
 
@@ -86,7 +79,8 @@ function buildAdminEmail(ticketId: string, payload: TicketPayload) {
     "Message:",
     payload.message,
     "",
-    "Reply to this email to respond directly to the customer."
+    "Reply to this email to respond directly to the customer.",
+    payload.attachmentNames.length ? `Attachments: ${payload.attachmentNames.join(", ")}` : ""
   ].join("\n");
 
   const htmlRows = fields
@@ -120,9 +114,12 @@ function buildCustomerEmail(ticketId: string, payload: TicketPayload) {
     `Ticket ID: ${ticketId}`,
     `Subject: ${payload.subject}`,
     `Priority: ${payload.priority}`,
+    payload.serviceReference ? `Service reference: ${payload.serviceReference}` : "",
     "",
     "We have received your message and will reply by email."
-  ].join("\n");
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   const html = `
     <div style="font-family:Arial,sans-serif;color:#0f172a;line-height:1.6;">
@@ -132,6 +129,11 @@ function buildCustomerEmail(ticketId: string, payload: TicketPayload) {
       <p><strong>Ticket ID:</strong> ${escapeHtml(ticketId)}</p>
       <p><strong>Subject:</strong> ${escapeHtml(payload.subject)}</p>
       <p><strong>Priority:</strong> ${escapeHtml(payload.priority)}</p>
+      ${
+        payload.serviceReference
+          ? `<p><strong>Service reference:</strong> ${escapeHtml(payload.serviceReference)}</p>`
+          : ""
+      }
       <p>We have received your message and will reply by email.</p>
     </div>
   `;
@@ -139,12 +141,63 @@ function buildCustomerEmail(ticketId: string, payload: TicketPayload) {
   return { text, html };
 }
 
+function getFormValue(formData: FormData, key: string) {
+  const value = formData.get(key);
+
+  return typeof value === "string" ? clean(value) : "";
+}
+
+async function prepareAttachments(formData: FormData) {
+  const files = formData
+    .getAll("attachments")
+    .filter((value): value is File => value instanceof File && value.size > 0);
+
+  if (files.length > maxFiles) {
+    throw new Error(`Upload up to ${maxFiles} attachments only.`);
+  }
+
+  const totalSize = files.reduce((total, file) => total + file.size, 0);
+
+  if (totalSize > maxTotalSize) {
+    throw new Error("Total attachment size must be 15 MB or less.");
+  }
+
+  const attachments: SupportMailAttachment[] = [];
+
+  for (const file of files) {
+    if (file.size > maxFileSize) {
+      throw new Error(`${file.name} is too large. Each attachment must be 5 MB or less.`);
+    }
+
+    if (file.type && !allowedAttachmentTypes.has(file.type)) {
+      throw new Error(`${file.name} is not an allowed attachment type.`);
+    }
+
+    attachments.push({
+      filename: file.name,
+      content: Buffer.from(await file.arrayBuffer()),
+      contentType: file.type || undefined
+    });
+  }
+
+  return attachments;
+}
+
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const session = decodeToken<SupportSession>(cookies().get(SUPPORT_SESSION_COOKIE)?.value);
+
+    if (!session) {
+      return NextResponse.json(
+        { ok: false, message: "Please login before creating a support ticket." },
+        { status: 401 }
+      );
+    }
+
+    const formData = await request.formData();
 
     for (const field of requiredFields) {
-      if (!clean(body[field])) {
+      if (!getFormValue(formData, field)) {
         return NextResponse.json(
           { ok: false, message: `Missing required field: ${field}` },
           { status: 400 }
@@ -152,14 +205,17 @@ export async function POST(request: Request) {
       }
     }
 
+    const attachments = await prepareAttachments(formData);
     const payload: TicketPayload = {
-      fullName: clean(body.fullName),
-      email: clean(body.email),
-      phone: clean(body.phone),
-      department: clean(body.department),
-      priority: clean(body.priority),
-      subject: clean(body.subject),
-      message: clean(body.message)
+      fullName: session.fullName,
+      email: session.email,
+      phone: session.phone,
+      department: getFormValue(formData, "department"),
+      priority: getFormValue(formData, "priority"),
+      serviceReference: getFormValue(formData, "serviceReference"),
+      subject: getFormValue(formData, "subject"),
+      message: getFormValue(formData, "message"),
+      attachmentNames: attachments.map((attachment) => attachment.filename)
     };
 
     if (!isEmail(payload.email)) {
@@ -169,9 +225,9 @@ export async function POST(request: Request) {
       );
     }
 
-    const config = getMailConfig();
+    const mail = createSupportTransporter();
 
-    if (!config) {
+    if (!mail) {
       return NextResponse.json(
         {
           ok: false,
@@ -183,31 +239,26 @@ export async function POST(request: Request) {
     }
 
     const ticketId = generateTicketId();
-    const transporter = nodemailer.createTransport({
-      host: config.host,
-      port: config.port,
-      secure: config.secure,
-      auth: config.auth
-    });
     const adminEmail = buildAdminEmail(ticketId, payload);
     const customerEmail = buildCustomerEmail(ticketId, payload);
 
-    await transporter.sendMail({
-      from: config.from,
-      to: config.supportEmail,
+    await mail.transporter.sendMail({
+      from: mail.config.from,
+      to: mail.config.supportEmail,
       replyTo: {
         name: payload.fullName,
         address: payload.email
       },
       subject: `[${ticketId}] ${payload.subject}`,
       text: adminEmail.text,
-      html: adminEmail.html
+      html: adminEmail.html,
+      attachments
     });
 
-    await transporter.sendMail({
-      from: config.from,
+    await mail.transporter.sendMail({
+      from: mail.config.from,
       to: payload.email,
-      replyTo: config.supportEmail,
+      replyTo: mail.config.supportEmail,
       subject: `Ticket received: ${ticketId}`,
       text: customerEmail.text,
       html: customerEmail.html
@@ -218,9 +269,13 @@ export async function POST(request: Request) {
       ticketId,
       message: "Support ticket created"
     });
-  } catch {
+  } catch (error) {
     return NextResponse.json(
-      { ok: false, message: "Unable to create support ticket." },
+      {
+        ok: false,
+        message:
+          error instanceof Error ? error.message : "Unable to create support ticket."
+      },
       { status: 400 }
     );
   }
