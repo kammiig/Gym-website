@@ -30,14 +30,33 @@ export function PageHero({
             </ButtonLink>
           </div>
         </div>
-        <div className="page-hero-panel" aria-hidden="true">
-          <div className="panel-icon">
-            <Icon name="Server" size={30} />
+        <div className="page-hero-panel">
+          <div className="panel-heading">
+            <div className="panel-icon">
+              <Icon name="Server" size={30} />
+            </div>
+            <div>
+              <span>Planetic hosting stack</span>
+              <strong>Live support ready</strong>
+            </div>
           </div>
-          <div className="panel-lines">
-            <span />
-            <span />
-            <span />
+          <div className="panel-services">
+            <div className="panel-service">
+              <Icon name="Zap" size={20} />
+              <span>SSD hosting performance</span>
+            </div>
+            <div className="panel-service">
+              <Icon name="ShieldCheck" size={20} />
+              <span>SSL security included</span>
+            </div>
+            <div className="panel-service">
+              <Icon name="PanelTop" size={20} />
+              <span>cPanel website control</span>
+            </div>
+            <div className="panel-service">
+              <Icon name="LifeBuoy" size={20} />
+              <span>WHMCS client support</span>
+            </div>
           </div>
           <div className="panel-badges">
             <span>Fast</span>

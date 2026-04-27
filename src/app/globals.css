@@ -482,39 +482,63 @@ svg {
   background: rgba(255, 255, 255, 0.08);
 }
 
+.panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .panel-icon {
   display: grid;
   width: 58px;
   height: 58px;
+  flex: 0 0 auto;
   place-items: center;
   border-radius: 8px;
   background: var(--blue);
   color: var(--white);
 }
 
-.panel-lines {
+.panel-heading span,
+.panel-heading strong {
+  display: block;
+}
+
+.panel-heading span {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.82rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.panel-heading strong {
+  margin-top: 4px;
+  color: var(--white);
+  font-size: 1.12rem;
+  line-height: 1.2;
+}
+
+.panel-services {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   margin: 28px 0;
 }
 
-.panel-lines span {
-  display: block;
-  height: 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
+.panel-service {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 13px 14px;
+  background: rgba(7, 17, 31, 0.34);
+  color: rgba(255, 255, 255, 0.84);
+  font-weight: 820;
 }
 
-.panel-lines span:nth-child(1) {
-  width: 82%;
-}
-
-.panel-lines span:nth-child(2) {
-  width: 64%;
-}
-
-.panel-lines span:nth-child(3) {
-  width: 72%;
+.panel-service svg {
+  flex: 0 0 auto;
+  color: #8fd5ff;
 }
 
 .panel-badges {
