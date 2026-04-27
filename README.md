@@ -85,6 +85,8 @@ SUPPORT_AUTH_SECRET=replace-with-a-long-random-secret
 
 For Gmail, create a Google App Password and use it as `SMTP_PASS`. Do not use your normal Gmail password.
 
+If Gmail rejects the SMTP login, follow `SUPPORT_EMAIL_SETUP.md`.
+
 ## Folder Structure
 
 ```text
