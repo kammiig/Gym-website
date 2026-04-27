@@ -9,6 +9,7 @@ Dynamic, GitHub-ready Next.js website for **Planetic Solutions**: web hosting, d
 - Central editable data files in `src/data`
 - Reusable components in `src/components`
 - API-ready contact form route at `src/app/api/contact/route.ts`
+- Email-based support ticket route at `src/app/api/tickets/route.ts`
 - SEO metadata, sitemap, robots, and JSON-LD structure
 
 ## Quick Start
@@ -45,7 +46,7 @@ Update those files to change plans, prices, FAQs, page copy, testimonials, or li
 
 ## WHMCS Integration
 
-All hosting order, billing, support, invoice, domain management, and client area CTAs point to:
+Hosting order, billing, invoice, domain management, and client area CTAs point to:
 
 ```text
 https://planeticsolution.com/clientarea/
@@ -65,6 +66,24 @@ CONTACT_WEBHOOK_URL=https://your-secure-webhook.example/contact
 
 Do not commit `.env.local` or real API keys to GitHub.
 
+## Support Tickets by Email
+
+The `/support` page lets customers create support tickets. Tickets are sent to `kammiig@gmail.com`, and the admin ticket email uses the customer's email as `Reply-To`, so you can reply from Gmail directly.
+
+This uses SMTP through environment variables:
+
+```bash
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=kammiig@gmail.com
+SMTP_PASS=your_gmail_app_password
+SMTP_FROM="Planetic Solutions Support <kammiig@gmail.com>"
+SUPPORT_EMAIL=kammiig@gmail.com
+```
+
+For Gmail, create a Google App Password and use it as `SMTP_PASS`. Do not use your normal Gmail password.
+
 ## Folder Structure
 
 ```text
@@ -72,11 +91,13 @@ Do not commit `.env.local` or real API keys to GitHub.
 +-- src
 |   +-- app
 |   |   +-- api/contact/route.ts
+|   |   +-- api/tickets/route.ts
 |   |   +-- about/page.tsx
 |   |   +-- contact/page.tsx
 |   |   +-- domain-registration/page.tsx
 |   |   +-- news/page.tsx
 |   |   +-- pricing/page.tsx
+|   |   +-- support/page.tsx
 |   |   +-- web-hosting/page.tsx
 |   |   +-- website-development/page.tsx
 |   |   +-- globals.css

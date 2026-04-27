@@ -17,7 +17,7 @@ export function ButtonLink({
   const classes = `btn btn-${variant} ${className}`.trim();
   const isExternal = href.startsWith("http");
 
-  if (isExternal) {
+  if (isExternal || href.startsWith("#")) {
     return (
       <a href={href} className={classes}>
         {children}

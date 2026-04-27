@@ -606,7 +606,8 @@ svg {
 .process-card,
 .domain-search-panel,
 .contact-form,
-.contact-panel {
+.contact-panel,
+.support-panel {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--white);
@@ -667,7 +668,8 @@ svg {
 .pricing-card p,
 .process-card p,
 .blog-card p,
-.contact-panel p {
+.contact-panel p,
+.support-panel p {
   margin: 0;
   color: var(--muted);
   font-size: 0.96rem;
@@ -889,7 +891,8 @@ svg {
 
 .domain-grid,
 .about-grid,
-.contact-grid {
+.contact-grid,
+.support-grid {
   display: grid;
   grid-template-columns: 1fr 0.85fr;
   gap: 36px;
@@ -902,6 +905,7 @@ svg {
 
 .domain-search-panel,
 .contact-panel,
+.support-panel,
 .contact-form {
   padding: 28px;
 }
@@ -1000,11 +1004,55 @@ svg {
   color: #b91c1c;
 }
 
-.contact-panel h2 {
+.contact-panel h2,
+.support-panel h2 {
   margin: 12px 0;
   color: var(--navy);
   font-size: 1.8rem;
   line-height: 1.18;
+}
+
+.support-panel a {
+  color: var(--blue);
+  font-weight: 850;
+}
+
+.support-steps {
+  display: grid;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.support-steps div {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: var(--soft);
+}
+
+.support-steps strong {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--blue);
+  color: var(--white);
+}
+
+.support-steps span {
+  color: #27364c;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.ticket-id {
+  display: block;
+  margin-top: 6px;
 }
 
 .contact-details {
@@ -1151,6 +1199,7 @@ svg {
   .domain-grid,
   .about-grid,
   .contact-grid,
+  .support-grid,
   .cta-inner {
     grid-template-columns: 1fr;
   }
@@ -1267,6 +1316,7 @@ svg {
   .page-hero-panel,
   .domain-search-panel,
   .contact-panel,
+  .support-panel,
   .contact-form,
   .pricing-card {
     padding: 22px;

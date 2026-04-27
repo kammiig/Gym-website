@@ -92,6 +92,19 @@ export const pages = {
       secondaryCta: { label: "View Pricing", href: "/pricing" }
     }
   },
+  support: {
+    seoTitle: "Support Tickets",
+    metaDescription:
+      "Create a Planetic Solutions support ticket for hosting, domains, billing, website development, and client area help.",
+    hero: {
+      eyebrow: "Support tickets",
+      title: "Create a Support Ticket",
+      description:
+        "Send a support request with your service details. Your ticket will go to Planetic Solutions by email and you can receive replies directly in your inbox.",
+      primaryCta: { label: "Create Ticket", href: "#support-ticket-form" },
+      secondaryCta: { label: "Client Area", href: CLIENT_AREA_URL }
+    }
+  },
   news: {
     seoTitle: "News",
     metaDescription:

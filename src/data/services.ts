@@ -56,9 +56,9 @@ export const serviceCards = [
     icon: "Code2"
   },
   {
-    title: "WHMCS Client Support",
-    description: "Billing, support tickets, invoices, orders, and service management through the client portal.",
-    href: "https://planeticsolution.com/clientarea/",
+    title: "Support Tickets",
+    description: "Create an email-based support ticket for hosting, domains, billing, and website help.",
+    href: "/support",
     icon: "LifeBuoy"
   }
 ];
@@ -96,3 +96,15 @@ export const contactServiceOptions = [
   "WHMCS Client Area Support",
   "Other"
 ];
+
+export const supportDepartments = [
+  "Web Hosting",
+  "Domain Registration",
+  "Billing and Invoices",
+  "Website Development",
+  "Client Area Login",
+  "Technical Support",
+  "Other"
+];
+
+export const supportPriorities = ["Low", "Normal", "High", "Urgent"];

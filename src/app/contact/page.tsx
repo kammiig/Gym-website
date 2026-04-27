@@ -29,6 +29,7 @@ export default function ContactPage() {
             </p>
             <div className="contact-details">
               <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+              <a href="/support">Create Support Ticket</a>
               <a href={siteConfig.clientAreaUrl}>Client Area and Support</a>
             </div>
           </div>
