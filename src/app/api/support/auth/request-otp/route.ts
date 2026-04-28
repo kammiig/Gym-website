@@ -8,7 +8,11 @@ import {
   hashLoginCode,
   isProduction
 } from "@/lib/supportAuth";
-import { createSupportTransporter, getSupportMailErrorMessage } from "@/lib/supportMail";
+import {
+  getSupportInboxAddress,
+  getSupportMailErrorMessage,
+  sendSupportEmail
+} from "@/lib/supportMail";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -51,19 +55,6 @@ export async function POST(request: Request) {
       );
     }
 
-    const mail = createSupportTransporter();
-
-    if (!mail) {
-      return NextResponse.json(
-        {
-          ok: false,
-          message:
-            "Support login email is not configured yet. Add SMTP settings in your environment variables."
-        },
-        { status: 500 }
-      );
-    }
-
     const code = createLoginCode();
     const expiresAt = Date.now() + challengeMaxAgeSeconds * 1000;
 
@@ -85,10 +76,9 @@ export async function POST(request: Request) {
       }
     );
 
-    await mail.transporter.sendMail({
-      from: mail.config.from,
+    await sendSupportEmail({
       to: email,
-      replyTo: mail.config.supportEmail,
+      replyTo: getSupportInboxAddress(),
       subject: "Your Planetic Solutions support login code",
       text: [
         `Hi ${fullName},`,

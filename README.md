@@ -70,7 +70,16 @@ Do not commit `.env.local` or real API keys to GitHub.
 
 The `/support` page includes a login-first support portal. Customers receive a one-time login code by email, then create tickets with screenshots or attachments. Tickets are sent to `kammiig@gmail.com`, and the admin ticket email uses the customer's email as `Reply-To`, so you can reply from Gmail directly.
 
-This uses SMTP through environment variables:
+Recommended production email setup:
+
+```bash
+RESEND_API_KEY=your_resend_api_key
+RESEND_FROM="Planetic Solutions Support <support@planeticsolution.com>"
+SUPPORT_EMAIL=kammiig@gmail.com
+SUPPORT_AUTH_SECRET=replace-with-a-long-random-secret
+```
+
+Optional Gmail SMTP fallback:
 
 ```bash
 SMTP_HOST=smtp.gmail.com
@@ -79,11 +88,9 @@ SMTP_SECURE=true
 SMTP_USER=kammiig@gmail.com
 SMTP_PASS=your_gmail_app_password
 SMTP_FROM="Planetic Solutions Support <kammiig@gmail.com>"
-SUPPORT_EMAIL=kammiig@gmail.com
-SUPPORT_AUTH_SECRET=replace-with-a-long-random-secret
 ```
 
-For Gmail, create a Google App Password and use it as `SMTP_PASS`. Do not use your normal Gmail password.
+For Gmail, create a Google App Password and use it as `SMTP_PASS`. Do not use your normal Gmail password. Resend is recommended for production because Gmail often blocks SMTP from hosting platforms.
 
 If Gmail rejects the SMTP login, follow `SUPPORT_EMAIL_SETUP.md`.
 

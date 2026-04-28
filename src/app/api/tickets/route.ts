@@ -3,8 +3,9 @@ import { NextResponse } from "next/server";
 import { SUPPORT_SESSION_COOKIE, SupportSession, decodeToken } from "@/lib/supportAuth";
 import {
   SupportMailAttachment,
-  createSupportTransporter,
-  getSupportMailErrorMessage
+  getSupportInboxAddress,
+  getSupportMailErrorMessage,
+  sendSupportEmail
 } from "@/lib/supportMail";
 
 export const runtime = "nodejs";
@@ -229,26 +230,12 @@ export async function POST(request: Request) {
       );
     }
 
-    const mail = createSupportTransporter();
-
-    if (!mail) {
-      return NextResponse.json(
-        {
-          ok: false,
-          message:
-            "Support email is not configured yet. Add SMTP settings in your environment variables."
-        },
-        { status: 500 }
-      );
-    }
-
     const ticketId = generateTicketId();
     const adminEmail = buildAdminEmail(ticketId, payload);
     const customerEmail = buildCustomerEmail(ticketId, payload);
 
-    await mail.transporter.sendMail({
-      from: mail.config.from,
-      to: mail.config.supportEmail,
+    await sendSupportEmail({
+      to: getSupportInboxAddress(),
       replyTo: {
         name: payload.fullName,
         address: payload.email
@@ -259,10 +246,9 @@ export async function POST(request: Request) {
       attachments
     });
 
-    await mail.transporter.sendMail({
-      from: mail.config.from,
+    await sendSupportEmail({
       to: payload.email,
-      replyTo: mail.config.supportEmail,
+      replyTo: getSupportInboxAddress(),
       subject: `Ticket received: ${ticketId}`,
       text: customerEmail.text,
       html: customerEmail.html

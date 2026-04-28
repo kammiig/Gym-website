@@ -1,6 +1,27 @@
-# Gmail SMTP Setup for Support Portal
+# Support Email Setup
 
-The support portal sends login codes and ticket emails through Gmail SMTP. If you see:
+The support portal sends login codes and ticket emails through an email provider. Resend is recommended for production. Gmail SMTP remains available as a fallback, but Gmail may reject SMTP from hosting platforms.
+
+## Recommended: Resend
+
+Set these environment variables:
+
+```bash
+RESEND_API_KEY=your_resend_api_key
+RESEND_FROM="Planetic Solutions Support <support@planeticsolution.com>"
+SUPPORT_EMAIL=kammiig@gmail.com
+SUPPORT_AUTH_SECRET=replace-with-a-long-random-secret
+```
+
+Important details:
+
+- `RESEND_FROM` must use a verified Resend sending domain.
+- If you do not verify `planeticsolution.com`, use a Resend-verified sender address.
+- Redeploy or restart the app after changing environment variables.
+
+## Gmail SMTP Fallback
+
+If you see:
 
 ```text
 Gmail rejected the SMTP login
@@ -61,4 +82,4 @@ Important details:
 
 ## If Gmail Still Rejects Login
 
-Use a transactional email service such as Resend, Brevo, Mailgun, or SendGrid instead of Gmail SMTP. Gmail can block SMTP sending from some hosting environments even with the right password.
+Use Resend instead of Gmail SMTP. Gmail can block SMTP sending from some hosting environments even with the right password.

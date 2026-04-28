@@ -24,19 +24,26 @@ git push -u origin main
 ```bash
 CONTACT_WEBHOOK_URL=
 NEXT_PUBLIC_CONTACT_ENDPOINT=
+RESEND_API_KEY=your_resend_api_key
+RESEND_FROM="Planetic Solutions Support <support@planeticsolution.com>"
+SUPPORT_EMAIL=kammiig@gmail.com
+SUPPORT_AUTH_SECRET=replace-with-a-long-random-secret
+```
+
+Optional Gmail SMTP fallback:
+
+```bash
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=465
 SMTP_SECURE=true
 SMTP_USER=kammiig@gmail.com
 SMTP_PASS=your_gmail_app_password
 SMTP_FROM="Planetic Solutions Support <kammiig@gmail.com>"
-SUPPORT_EMAIL=kammiig@gmail.com
-SUPPORT_AUTH_SECRET=replace-with-a-long-random-secret
 ```
 
 7. Deploy.
 
-For Gmail support tickets, use a Google App Password for `SMTP_PASS`. Do not put your normal Gmail password in GitHub.
+Resend is recommended for production email. If you use Gmail support tickets, use a Google App Password for `SMTP_PASS`. Do not put your normal Gmail password in GitHub.
 
 Every push to the GitHub `main` branch can automatically trigger a new deployment.
 
